@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -130,15 +132,15 @@ def SubPlotDelay(data):
         df1 = DataFrame(data1)
         df2 = DataFrame(data2)
         df3 = DataFrame(data3)
-        df1['x'] = range(len(df1))
-        df2['x'] = range(len(df2))
-        df3['x'] = range(len(df3))
+        df1['序号'] = range(len(df1))
+        df2['序号'] = range(len(df2))
+        df3['序号'] = range(len(df3))
         # df1.rename(columns={0: 'x', 1: 'SuperDelay'}, inplace=True)
         # df2.rename(columns={0: 'x', 1: 'PenetrateDelayMix'}, inplace=True)
         # df3.rename(columns={0: 'x', 1: 'PenetrateDelayTcp'}, inplace=True)
 
         # 画图保存
-        fig = plt.figure(figsize=(10, 40))
+        fig = plt.figure(figsize=(20, 15))
         y_major_locator = plt.MultipleLocator(2000)
         # y_minor_locator = plt.MultipleLocator(1000)
         count_null = 0
@@ -160,7 +162,7 @@ def SubPlotDelay(data):
             ax1 = fig.add_subplot(fig_num, 1, pos)
             ax1.yaxis.set_major_locator(y_major_locator)
             # ax1.yaxis.set_minor_locator(y_minor_locator)
-            df1.plot.scatter(ax=ax1, x='x', y='SuperDelay')
+            df1.plot.scatter(ax=ax1, x='序号', y='SuperDelay')
             # plt.ylim((0, 100000))
             plt.rcParams['font.sans-serif'] = ['SimHei']
             plt.ylabel('核心延时(纳秒)')
@@ -169,7 +171,7 @@ def SubPlotDelay(data):
             ax2 = fig.add_subplot(fig_num, 1, pos)
             ax2.yaxis.set_major_locator(y_major_locator)
             # ax2.yaxis.set_minor_locator(y_minor_locator)
-            df2.plot.scatter(ax=ax2, x='x', y='PenetrateDelayMix')
+            df2.plot.scatter(ax=ax2, x='序号', y='PenetrateDelayMix')
             # plt.ylim((0, 100000))
             plt.rcParams['font.sans-serif'] = ['SimHei']
             plt.ylabel('穿透延时-混合模式(纳秒)')
@@ -178,11 +180,11 @@ def SubPlotDelay(data):
             ax3 = fig.add_subplot(fig_num, 1, pos)
             ax3.yaxis.set_major_locator(y_major_locator)
             # ax3.yaxis.set_minor_locator(y_minor_locator)
-            df3.plot.scatter(ax=ax3, x='x', y='PenetrateDelayTcp')
+            df3.plot.scatter(ax=ax3, x='序号', y='PenetrateDelayTcp')
             # plt.ylim((0, 100000))
             plt.rcParams['font.sans-serif'] = ['SimHei']
             plt.ylabel('穿透延时-tcp(纳秒)')
-        plt.xlabel('序号')
+        # plt.xlabel('序号')
         plt.savefig(sheetName + ".png", dpi=500, bbox_inches='tight')
 
         # 读取结果文件的sheet页，并将图片插入到对应sheet页中
@@ -190,7 +192,7 @@ def SubPlotDelay(data):
         print(sheet)
         fig_name = sheetName + ".png"
         img = Image(fig_name)
-        newsize = (1000, 1000)
+        newsize = (1000, 750)
         img.width, img.height = newsize
         sheet.add_image(img, "A10")
     wb.save(result_file)
