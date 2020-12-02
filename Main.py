@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
+import matplotlib.pyplot as plt
 import os
 import pandas as pd
-import matplotlib.pyplot as plt
 from pandas import DataFrame
 import openpyxl
 from openpyxl.drawing.image import Image
